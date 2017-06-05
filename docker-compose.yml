@@ -1,0 +1,16 @@
+version: '2'
+services:
+  client:
+      build: ./client
+      ports:
+          - "4200:4200"
+      volumes:
+          - ./client:/usr/src/app/client
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+      - subnet: "10.1.1.0/24"
+        gateway: "10.1.1.1"
