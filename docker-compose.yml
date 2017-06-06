@@ -2,10 +2,57 @@ version: '2'
 services:
   client:
       build: ./client
+      container_name: client
       ports:
           - "4200:4200"
       volumes:
           - ./client:/usr/src/app/client
+
+  server:
+      build: ./server
+      container_name: server
+      ports:
+          - "5000:5000"
+      expose:
+          - "5432"
+          - "5000"
+      volumes:
+          - ./server:/usr/src/app/server
+      environment:
+        - FLASK_APP=/usr/src/app/server/app.py
+        - FLASK_DEBUG=1
+        - DATABASE_URL="postgresql://postgres:123456@postgres:5432/database"
+      depends_on: 
+        - postgres
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=database
+    ports:
+      - 5432:5432
+    expose:
+      - "5432"
+    depends_on:
+      - client
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf 
+    links:
+      - server
+      - client
+    ports:
+      - 80:80
+    expose:
+      - "5000"
 
 networks:
   default:
