@@ -23,8 +23,6 @@ services:
         - FLASK_DEBUG=1
         - DATABASE_URL=postgresql://user:123456@db:5432/database
         - APP_SETTINGS=config.DevelopmentConfig
-     depends_on:
-        - db
 
 
   db:
@@ -40,8 +38,6 @@ services:
       - 5432:5432
     expose:
       - "5432"
-    links:
-      - client
 
 networks:
   default:

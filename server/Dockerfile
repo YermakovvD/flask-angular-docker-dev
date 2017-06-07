@@ -9,6 +9,4 @@ WORKDIR $HOME
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN source /root/venv/bin/activate
-
 CMD /usr/src/app/server/venv/bin/pip install -r requirements.txt && /usr/src/app/server/venv/bin/python manage.py db init && /usr/src/app/server/venv/bin/python manage.py db migrate && /usr/src/app/server/venv/bin/python manage.py db upgrade && nginx && /usr/src/app/server/venv/bin/flask run --host=0.0.0.0
