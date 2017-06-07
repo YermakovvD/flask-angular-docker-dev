@@ -3,8 +3,8 @@ FROM python:2.7
 RUN apt-get update -y 
 RUN apt-get install nginx -y
 
-ENV HOME=/usr/src/app
-RUN mkdir $HOME
+ENV HOME=/usr/src/app/server
+RUN mkdir -p $HOME
 WORKDIR $HOME
 
-CMD pip install -r ./server/requirements.txt && nginx && flask run --host=0.0.0.0
+CMD pip install -r requirements.txt && python manage.py db init && python manage.py db migrate && python manage.py db upgrade && nginx && flask run --host=0.0.0.0

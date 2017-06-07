@@ -21,14 +21,15 @@ services:
       environment:
         - FLASK_APP=/usr/src/app/server/app.py
         - FLASK_DEBUG=1
-        - DATABASE_URL="postgresql://user:123456@postgres:5432/database"
-      depends_on:
-        - postgres
+        - DATABASE_URL=postgresql://user:123456@db:5432/database
+        - APP_SETTINGS=config.DevelopmentConfig
+     depends_on:
+        - db
 
 
-  postgres:
+  db:
     image: postgres
-    container_name: postgres
+    container_name: db
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     environment:
