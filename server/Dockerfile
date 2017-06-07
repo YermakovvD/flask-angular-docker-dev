@@ -7,4 +7,6 @@ ENV HOME=/usr/src/app/server
 RUN mkdir -p $HOME
 WORKDIR $HOME
 
-CMD pip install -r requirements.txt && python manage.py db init && python manage.py db migrate && python manage.py db upgrade && nginx && flask run --host=0.0.0.0
+RUN pip install -r requirements.txt
+
+CMD python manage.py db init && python manage.py db migrate && python manage.py db upgrade && nginx && flask run --host=0.0.0.0
