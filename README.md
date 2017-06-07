@@ -26,7 +26,7 @@ When you restart the container, your data will not pass from the database.
 ### System packeges
 If you need to add the system packages to the image, add them in Dockerfile of each project (`./client/Dockerfile` or `./server/Dockerfile`)
 example:
-![add system packeges](https://image.prntscr.com/image/a31ad4fe1dbb416fa6448b54ea09450e.png)
+![add system packeges](https://image.prntscr.com/image/fa3939b97f644a568448e45ab2973514.png)
 
 ### Nginx config
 you can change file `./nginx.conf` and run:
